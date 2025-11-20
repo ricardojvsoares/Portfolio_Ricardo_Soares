@@ -54,7 +54,7 @@
         "title": "Power BI et optimisation de l'entrepôt de données",
         "description": "Une intégration complète entre Power BI et le nouvel entrepôt de données centralisé."
       },
-        "portfolio": {
+      "portfolio": {
         "title": "Portfolio",
         "description": "Site portfolio personnel présentant des projets, compétences et informations de contact. Construit avec SvelteKit et des technologies web modernes."
       },
