@@ -27,7 +27,7 @@
     : $t('theme.switchToLight')}
   class:animating={isAnimating}
 >
-  <div class="toggle-track">
+  <div class="toggle-track" aria-hidden="true">
     <div class="toggle-thumb" class:dark={$theme === 'dark'}>
       <span class="toggle-icon">
         {#if $theme === 'light'}
@@ -38,22 +38,20 @@
       </span>
     </div>
   </div>
-  <span class="toggle-label">
-    {$theme === 'light' ? $t('theme.light') : $t('theme.dark')}
-  </span>
 </button>
 
 <style>
   .theme-toggle {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
+    justify-content: center;
+    gap: 0.4rem;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 25px;
-    transition: all 0.3s ease;
+    padding: 0.35rem;
+    border-radius: 12px;
+    transition: background 0.18s ease;
     color: var(--text-color);
   }
 
@@ -96,14 +94,8 @@
   }
 
   .toggle-icon {
-    font-size: 0.8rem;
-    line-height: 1;
-  }
-
-  .toggle-label {
     font-size: 0.9rem;
-    font-weight: 500;
-    user-select: none;
+    line-height: 1;
   }
 
   .theme-toggle.animating .toggle-thumb {
@@ -115,13 +107,8 @@
   }
 
   @media (max-width: 768px) {
-    .toggle-label {
-      display: none;
-    }
-
     .theme-toggle {
-      gap: 0;
-      padding: 0.8rem;
+      padding: 0.25rem;
     }
   }
 </style>
