@@ -64,10 +64,6 @@
           class:featured={project.featured}
           style="animation-delay: {index * 0.1}s"
         >
-          <div class="project-image">
-            <span class="project-icon">{project.image}</span>
-          </div>
-
           <div class="project-content">
             <h3 class="project-title">{$t(project.titleKey)}</h3>
             <p class="project-description">{$t(project.descriptionKey)}</p>
@@ -79,9 +75,12 @@
             </div>
 
             <!-- Only render actions if links are available -->
-      <!-- Reserve the actions area always so cards keep consistent height.
+            <!-- Reserve the actions area always so cards keep consistent height.
         Use the `no-links` class to hide the separator when there are no links. -->
-      <div class="project-actions" class:no-links={!project.github && !project.demo}>
+            <div
+              class="project-actions"
+              class:no-links={!project.github && !project.demo}
+            >
               {#if project.github}
                 <a
                   href={project.github}
@@ -222,9 +221,9 @@
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.6s ease forwards;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .project-card:hover {
@@ -238,27 +237,9 @@
     box-shadow: var(--box-shadow);
   }
 
-  .project-image {
-    position: relative;
-    height: 200px;
-    background: linear-gradient(
-      135deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .project-icon {
-    font-size: 4rem;
-    opacity: 0.8;
-  }
+  /* project-image removed to focus on content */
 
   /* overlay and project-links removed; actions are always visible */
-
   /* base link styling (used in actions) */
   .project-link {
     background: transparent;
@@ -267,13 +248,15 @@
     text-decoration: none;
     border-radius: 12px;
     font-weight: 600;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      transform 0.15s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     height: 44px; /* fixed vertical size */
   }
-
   .project-link:hover {
     transform: translateY(-2px);
   }
@@ -288,13 +271,13 @@
   }
 
   .project-content {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1 1 auto;
-  min-height: 180px; /* ensure consistent content area so layout doesn't shift */
-  padding-bottom: 0.75rem; /* leave room before actions */
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    min-height: 180px; /* ensure consistent content area so layout doesn't shift */
+    padding-bottom: 0.75rem; /* leave room before actions */
   }
 
   .project-title {
@@ -330,16 +313,21 @@
   .project-actions {
     display: flex;
     gap: 0.75rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-  align-items: center;
-  min-height: 68px; /* reserve vertical space for actions even when empty */
-  padding-bottom: 0.5rem; /* breathing room */
-  background: linear-gradient(180deg, rgba(255,255,255,0.00), rgba(255,255,255,0.01));
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    align-items: center;
+    min-height: 68px; /* reserve vertical space for actions even when empty */
+    padding-bottom: 0.5rem; /* breathing room */
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.01)
+    );
   }
   /* If only one link, make it full width */
-  .project-actions :global(a:only-child), .project-actions :global(a:first-child:only-child) {
+  .project-actions :global(a:only-child),
+  .project-actions :global(a:first-child:only-child) {
     flex: 1 1 100%;
   }
 
@@ -399,6 +387,6 @@
       font-size: 2rem;
     }
 
-  /* no-op: project-links removed */
+    /* no-op: project-links removed */
   }
 </style>
