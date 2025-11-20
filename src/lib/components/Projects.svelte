@@ -66,30 +66,6 @@
         >
           <div class="project-image">
             <span class="project-icon">{project.image}</span>
-            <div class="project-overlay">
-              <div class="project-links">
-                {#if project.github}
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener"
-                    class="project-link"
-                  >
-                    <span>{$t('projects.github')}</span>
-                  </a>
-                {/if}
-                {#if project.demo}
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener"
-                    class="project-link demo"
-                  >
-                    <span>{$t('projects.demo')}</span>
-                  </a>
-                {/if}
-              </div>
-            </div>
           </div>
 
           <div class="project-content">
@@ -100,6 +76,32 @@
               {#each project.technologies as tech}
                 <span class="tech-tag">{tech}</span>
               {/each}
+            </div>
+
+            <!-- Only render actions if links are available -->
+      <!-- Reserve the actions area always so cards keep consistent height.
+        Use the `no-links` class to hide the separator when there are no links. -->
+      <div class="project-actions" class:no-links={!project.github && !project.demo}>
+              {#if project.github}
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  <span>{$t('projects.github')}</span>
+                </a>
+              {/if}
+              {#if project.demo}
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link demo"
+                >
+                  <span>{$t('projects.demo')}</span>
+                </a>
+              {/if}
             </div>
           </div>
         </div>
@@ -220,6 +222,9 @@
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.6s ease forwards;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   }
 
   .project-card:hover {
@@ -252,43 +257,25 @@
     opacity: 0.8;
   }
 
-  .project-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--black-80);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+  /* overlay and project-links removed; actions are always visible */
 
-  .project-card:hover .project-overlay {
-    opacity: 1;
-  }
-
-  .project-links {
-    display: flex;
-    gap: 1rem;
-  }
-
+  /* base link styling (used in actions) */
   .project-link {
-    padding: 0.8rem 1.5rem;
     background: transparent;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
     text-decoration: none;
-    border-radius: 25px;
+    border-radius: 12px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px; /* fixed vertical size */
   }
 
   .project-link:hover {
-    background: var(--primary-color);
-    color: var(--background-color);
+    transform: translateY(-2px);
   }
 
   .project-link.demo {
@@ -301,7 +288,13 @@
   }
 
   .project-content {
-    padding: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
+  min-height: 180px; /* ensure consistent content area so layout doesn't shift */
+  padding-bottom: 0.75rem; /* leave room before actions */
   }
 
   .project-title {
@@ -333,6 +326,59 @@
     border: 1px solid var(--border-color);
   }
 
+  /* Persistent action links bar */
+  .project-actions {
+    display: flex;
+    gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  align-items: center;
+  min-height: 68px; /* reserve vertical space for actions even when empty */
+  padding-bottom: 0.5rem; /* breathing room */
+  background: linear-gradient(180deg, rgba(255,255,255,0.00), rgba(255,255,255,0.01));
+  }
+  /* If only one link, make it full width */
+  .project-actions :global(a:only-child), .project-actions :global(a:first-child:only-child) {
+    flex: 1 1 100%;
+  }
+
+  /* Links share space equally when multiple */
+  .project-actions :global(a) {
+    flex: 1 1 50%;
+    text-align: center;
+  }
+
+  /* Ensure links use the fixed height and center their content */
+  .project-actions :global(a.project-link) {
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* When there are no links, hide the top separator but keep reserved space */
+  .project-actions.no-links {
+    border-top: none;
+  }
+
+  /* Improve title/description rendering */
+  .project-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   @keyframes fadeInUp {
     to {
       opacity: 1;
@@ -353,8 +399,6 @@
       font-size: 2rem;
     }
 
-    .project-links {
-      flex-direction: column;
-    }
+  /* no-op: project-links removed */
   }
 </style>
