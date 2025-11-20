@@ -55,8 +55,8 @@
         "description": "Uma integração abrangente entre o Power BI e o novo armazém de dados centralizado."
       },
       "portfolio": {
-        "title": "Aplicação de Gestão de Tarefas",
-        "description": "Uma aplicação colaborativa de gestão de tarefas com atualizações em tempo real, notificações e análises."
+        "title": "Portfolio",
+        "description": "Site de portfólio pessoal que mostra projetos, competências e informações de contacto. Construído com SvelteKit e tecnologias web modernas."
       },
       "bedRest": {
         "title": "Sistema de Gestão de Camas Hospitalares",

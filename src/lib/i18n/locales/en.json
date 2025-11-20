@@ -55,8 +55,8 @@
         "description": "A comprehensive integration between Power BI and the new centralized Data Warehouse."
       },
       "portfolio": {
-        "title": "Task Management App",
-        "description": "A collaborative task management app with real-time updates, notifications, and analytics."
+        "title": "Portfolio",
+        "description": "Personal portfolio website showcasing projects, skills, and contact information. Built with SvelteKit and modern web technologies."
       },
       "bedRest": {
         "title": "Hospital Bed Management System",

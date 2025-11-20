@@ -19,6 +19,7 @@ export const projects: Project[] = [
     technologies: ['Svelte', 'SvelteKit', 'TypeScript', 'HTML5', 'CSS'],
     category: 'frontend',
     github: 'https://github.com/ricardojvsoares/svelte-kit-portfolio',
+    demo: 'https://ricardosoares.vercel.app/',
     featured: true,
   },
   {

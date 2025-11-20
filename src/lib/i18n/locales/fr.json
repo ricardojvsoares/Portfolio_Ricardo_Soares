@@ -54,9 +54,9 @@
         "title": "Power BI et optimisation de l'entrepôt de données",
         "description": "Une intégration complète entre Power BI et le nouvel entrepôt de données centralisé."
       },
-      "portfolio": {
-        "title": "Application de gestion des tâches",
-        "description": "Une application collaborative de gestion des tâches avec des mises à jour en temps réel, des notifications et des analyses."
+        "portfolio": {
+        "title": "Portfolio",
+        "description": "Site portfolio personnel présentant des projets, compétences et informations de contact. Construit avec SvelteKit et des technologies web modernes."
       },
       "bedRest": {
         "title": "Système de gestion des lits d'hôpital",
