@@ -1,31 +1,58 @@
 :root {
-  --primary-color: #50e18d;
-  --secondary-color: #3ca7d5;
-  --box-shadow: 0 2px 8px rgba(88, 199, 196, 0.14);
-  --black-80: rgba(0, 0, 0, 0.8);
-  --white-80: rgba(255, 255, 255, 0.8);
-  --white-005: rgba(255, 255, 255, 0.05);
-  --black-005: rgba(0, 0, 0, 0.05);
-  --light-boarder: rgba(0, 255, 136, 0.3);
-  --color-error: #ff6b6b;
+  /* Accent colors (kept subtle) */
+  --primary-color: #111111; /* dark accent used for headings in light mode */
+  --secondary-color: #444444; /* secondary neutral accent (light mode) */
+
+  /* Scrollbar tokens (can be overridden per theme) */
+  --scrollbar-thumb: rgba(0, 0, 0, 0.14);
+  --scrollbar-track: transparent;
+
+  /* Elevation and shadows */
+  --box-shadow: 0 6px 24px rgba(16, 24, 32, 0.12);
+  --shadow: rgba(16, 24, 32, 0.08);
+
+  /* Neutral helpers */
+  --black-90: rgba(0, 0, 0, 0.9);
+  --black-60: rgba(0, 0, 0, 0.6);
+  --black-20: rgba(0, 0, 0, 0.2);
+  --white-90: rgba(255, 255, 255, 0.95);
+  --white-60: rgba(255, 255, 255, 0.6);
+
+  --border-radius: 12px;
+  --card-padding: 1.5rem;
+
+  --color-error: #e03131;
 }
 
+/* Dark theme (predominantly black/charcoal, with light text) */
 [data-theme='dark'] {
-  --background-color: #14202b;
-  --surface-color: #1e2935;
-  --surface-hover: #253448;
-  --text-color: #e6f6fa;
-  --text-secondary: #77b4c7;
-  --border-color: rgba(72, 174, 209, 0.18);
-  --shadow: rgba(44, 166, 181, 0.18);
+  --background-color: #07080a; /* very dark background */
+  --surface-color: #0f1720; /* dark slate surface for cards */
+  --surface-hover: #111923; /* slightly lighter on hover */
+  --text-color: rgba(255, 255, 255, 0.96); /* near-white primary text */
+  --text-secondary: rgba(
+    255,
+    255,
+    255,
+    0.78
+  ); /* secondary text for better legibility */
+  /* make primary color light in dark mode so headings/accents are visible */
+  --primary-color: rgba(255, 255, 255, 0.92);
+  --secondary-color: rgba(255, 255, 255, 0.64);
+  /* scrollbar for dark */
+  --scrollbar-thumb: rgba(255, 255, 255, 0.12);
+  --scrollbar-track: transparent;
+  --muted: rgba(255, 255, 255, 0.06); /* still subtle but visible */
+  --border-color: rgba(255, 255, 255, 0.08); /* slightly stronger border */
 }
 
+/* Light theme (predominantly white, with dark text) */
 [data-theme='light'] {
-  --background-color: #e9f6fa;
+  --background-color: #ffffff;
   --surface-color: #ffffff;
-  --surface-hover: #c7edce;
-  --text-color: #194053;
-  --text-secondary: #569ba5;
-  --border-color: #b0ded9;
-  --shadow: rgba(76, 201, 240, 0.11);
+  --surface-hover: #f7f7f8;
+  --text-color: var(--black-90);
+  --text-secondary: var(--black-60);
+  --muted: rgba(16, 24, 32, 0.04);
+  --border-color: rgba(16, 24, 32, 0.06);
 }

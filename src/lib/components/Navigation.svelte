@@ -64,9 +64,9 @@
     z-index: 1000;
     padding: 1rem 0;
     transition: all 0.3s ease;
-    background: var(--background-color);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color, var(--border-color));
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border-color);
   }
 
   .nav.scrolled {
@@ -77,7 +77,7 @@
   .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,7 +85,7 @@
 
   .logo {
     text-decoration: none;
-    color: var(--text-color, white);
+    color: var(--text-color);
     font-weight: 900;
     font-size: 1.5rem;
     transition: color 0.3s ease;
@@ -96,14 +96,7 @@
   }
 
   .logo-text {
-    background: linear-gradient(
-      45deg,
-      var(--primary-color, var(--primary-color)),
-      var(--secondary-color, var(--secondary-color))
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-color);
   }
 
   .nav-links {
@@ -114,14 +107,14 @@
 
   .nav-links a {
     text-decoration: none;
-    color: var(--text-secondary, var(--text-secondary));
+    color: var(--text-secondary);
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
   }
 
   .nav-links a:hover {
-    color: var(--primary-color, var(--primary-color));
+    color: var(--primary-color);
   }
 
   .nav-links a::after {
@@ -162,7 +155,7 @@
   .menu-toggle span {
     width: 25px;
     height: 3px;
-    background: var(--primary-color, var(--primary-color));
+    background: var(--text-secondary);
     transition: all 0.3s ease;
     transform-origin: center;
   }

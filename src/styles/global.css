@@ -8,48 +8,47 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: var(--text-color);
   background-color: var(--background-color);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar personalizada */
+/* Scrollbar uses theme tokens */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--surface-color);
+  background: var(--scrollbar-track);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: 4px;
+  background: var(--scrollbar-thumb);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary-color);
-}
-
-/* Seleção de texto */
+/* Selection */
 ::selection {
-  background: var(--primary-color);
-  color: var(--background-color);
+  background: var(--muted, var(--primary-color));
+  color: var(--text-color);
 }
 
 /* Utilitários */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.25rem;
 }
 
 .section {
-  padding: 5rem 0;
+  padding: 4.5rem 0;
 }
 
 .text-center {
@@ -57,8 +56,9 @@ body {
 }
 
 .gradient-text {
+  /* minimal gradient: subtle contrast for headings */
   background: linear-gradient(
-    45deg,
+    90deg,
     var(--primary-color),
     var(--secondary-color)
   );
@@ -67,11 +67,11 @@ body {
   background-clip: text;
 }
 
-/* Animações */
+/* Gentle animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -89,9 +89,27 @@ body {
 }
 
 .fade-in-up {
-  animation: fadeInUp 0.8s ease forwards;
+  animation: fadeInUp 0.6s ease forwards;
 }
 
 .fade-in {
-  animation: fadeIn 0.8s ease forwards;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Small responsive helpers */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+/* Ensure default elements use surface for cards/sections */
+section,
+.card,
+.surface {
+  background: var(--surface-color);
+  color: var(--text-color);
 }

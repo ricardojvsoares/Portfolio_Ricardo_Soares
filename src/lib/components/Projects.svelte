@@ -113,7 +113,7 @@
   .projects-section {
     padding: 8rem 0;
     background: var(--background-color);
-    color: white;
+    color: var(--text-color);
   }
 
   .container {
@@ -139,14 +139,7 @@
     font-size: 3rem;
     font-weight: 900;
     margin-bottom: 1rem;
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-color);
   }
 
   .section-subtitle {
@@ -174,7 +167,7 @@
   .filter-btn {
     padding: 0.8rem 1.5rem;
     background: transparent;
-    border: 2px solid var(--primary-color);
+    border: 1px solid var(--border-color);
     color: var(--text-secondary);
     border-radius: 25px;
     cursor: pointer;
@@ -183,18 +176,14 @@
   }
 
   .filter-btn:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    border-color: var(--text-secondary);
+    color: var(--text-color);
   }
 
   .filter-btn.active {
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    border-color: transparent;
-    color: var(--background-color);
+    background: var(--surface-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
   }
 
   .projects-grid {
@@ -212,12 +201,13 @@
   }
 
   .project-card {
-    background: var(--white-005);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
+    background: var(--surface-color);
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    transition:
+      transform 0.22s ease,
+      box-shadow 0.22s ease;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.6s ease forwards;
@@ -227,9 +217,8 @@
   }
 
   .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--box-shadow);
-    border-color: var(--border-color);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(2, 6, 23, 0.08);
   }
 
   .project-card.featured {
@@ -243,7 +232,7 @@
   /* base link styling (used in actions) */
   .project-link {
     background: transparent;
-    border: 2px solid var(--primary-color);
+    border: 1px solid var(--border-color);
     color: var(--primary-color);
     text-decoration: none;
     border-radius: 12px;
@@ -263,7 +252,7 @@
 
   .project-link.demo {
     background: var(--primary-color);
-    color: var(--background-color);
+    color: var(--surface-color);
   }
 
   .project-link.demo:hover {
@@ -271,7 +260,7 @@
   }
 
   .project-content {
-    padding: 1.75rem;
+    padding: var(--card-padding);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -284,7 +273,7 @@
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 0.8rem;
-    color: var(--primary-color);
+    color: var(--text-color);
   }
 
   .project-description {
@@ -300,9 +289,9 @@
   }
 
   .tech-tag {
-    padding: 0.3rem 0.8rem;
-    background: var(--border-color);
-    color: var(--primary-color);
+    padding: 0.28rem 0.7rem;
+    background: var(--muted);
+    color: var(--text-secondary);
     border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 500;
@@ -315,15 +304,11 @@
     gap: 0.75rem;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid var(--border-color);
     align-items: center;
     min-height: 68px; /* reserve vertical space for actions even when empty */
     padding-bottom: 0.5rem; /* breathing room */
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.01)
-    );
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.02));
   }
   /* If only one link, make it full width */
   .project-actions :global(a:only-child),
