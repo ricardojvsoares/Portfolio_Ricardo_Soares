@@ -54,21 +54,30 @@ export const projects: Project[] = [
     descriptionKey: 'projects.items.bedRest.description',
     image: '🛏️',
     technologies: ['JavaScript', 'TypeScript', 'HTML5', 'CSS'],
-    category: 'frontend',
-    github:
-      'https://github.com/ricardojvsoares/BedRest_HospitalBedManagementSystem',
+    category: 'fullstack',
     featured: true,
   },
-  
+
   {
     id: 5,
     titleKey: 'projects.items.noteNow.title',
     descriptionKey: 'projects.items.noteNow.description',
     image: '📓',
-    technologies: ['TypeScript', 'SvelteKIT','Svelte', 'TailwindCSS'],
+    technologies: ['TypeScript', 'SvelteKIT', 'Svelte', 'TailwindCSS'],
     category: 'fullstack',
-    github:'https://github.com/ricardojvsoares/noteNow',
-    demo:'https://note-now.vercel.app/',
+    github: 'https://github.com/ricardojvsoares/noteNow',
+    demo: 'https://note-now.vercel.app/',
+    featured: true,
+  },
+  {
+    id: 6,
+    titleKey: 'projects.items.components.title',
+    descriptionKey: 'projects.items.components.description',
+    image: '🧩',
+    technologies: ['Svelte', 'TypeScript', 'Components', 'UI'],
+    category: 'frontend',
+    github: 'https://github.com/ricardojvsoares/Components',
+    demo: 'https://rjcomponents.vercel.app',
     featured: true,
   },
 ];

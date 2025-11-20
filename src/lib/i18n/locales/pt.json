@@ -69,6 +69,10 @@
       "noteNow": {
         "title": "Página Web NoteNow",
         "description": "Um projeto full stack desenvolvido como parte do aprendizado de SvelteKit"
+      },
+      "components": {
+        "title": "Biblioteca de Componentes",
+        "description": "Uma biblioteca reutilizável de componentes Svelte e uma coleção de blocos de UI."
       }
     },
     "github": "Ver no GitHub",

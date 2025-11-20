@@ -66,12 +66,15 @@
         "title": "Juego Motomania para casino",
         "description": "Un juego de crash desarrollado como parte de las prácticas en Casino:Gate."
       },
-      
-        "noteNow": {
-          "title": "Página Web NoteNow",
-          "description": "Un proyecto full stack desarrollado como parte del aprendizaje de SvelteKit"
-        }
-      
+
+      "noteNow": {
+        "title": "Página Web NoteNow",
+        "description": "Un proyecto full stack desarrollado como parte del aprendizaje de SvelteKit"
+      },
+      "components": {
+        "title": "Librería de Componentes",
+        "description": "Una librería reutilizable de componentes Svelte y un conjunto de bloques de UI."
+      }
     },
     "github": "Ver en GitHub",
     "demo": "Demostración"
