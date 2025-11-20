@@ -5,10 +5,10 @@
   let dropdownElement: HTMLDivElement | null = $state(null);
 
   const languages = [
-    { code: 'pt', flag: '🇵🇹' }, // Portuguese (Portugal)
-    { code: 'en', flag: '🇺🇸' }, // English (United States)
-    { code: 'es', flag: '🇪🇸' }, // Spanish (Spain)
-    { code: 'fr', flag: '🇫🇷' }, // French (France)
+    { code: 'pt', flag: 'PT' }, // Portuguese (Portugal)
+    { code: 'en', flag: 'EN' }, // English (United States)
+    { code: 'es', flag: 'ES' }, // Spanish (Spain)
+    { code: 'fr', flag: 'FR' }, // French (France)
   ];
 
   function toggleDropdown() {
