@@ -1,4 +1,4 @@
-import { GITHUB, INSTAGRAM, LINKED_IN } from './constants';
+import { GITHUB, INSTAGRAM, LINKED_IN, TWITTER } from './constants';
 
 interface SocialLink {
   name: string;
@@ -30,7 +30,7 @@ export const socialLinks: SocialLink[] = [
   {
     name: 'Twitter',
     icon: '🐦',
-    url: 'TWITTER',
+    url: TWITTER,
     color: '#1da1f2',
   },
 ];
