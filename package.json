@@ -8,7 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install",
+    "prettier:write": "prettier --write .",
+    "lint-staged": "lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +26,8 @@
     "vite": "^7.0.6"
   },
   "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.0",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^24.2.0",
     "@types/nodemailer": "^6.4.17",
@@ -33,5 +38,10 @@
     "prettier-plugin-svelte": "^3.4.0",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2"
+  },
+  "lint-staged": {
+    "*.+(js|ts|svelte|json|css|md)": [
+      "prettier --write"
+    ]
   }
 }
