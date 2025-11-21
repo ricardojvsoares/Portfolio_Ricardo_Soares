@@ -3,6 +3,7 @@ interface experience {
   title: string;
   company: string;
   description: string;
+  pdf?: string;
 }
 
 export const experiences: experience[] = [
@@ -12,6 +13,7 @@ export const experiences: experience[] = [
     company: 'Casino:Gate',
     description:
       'Collaborating on the development of frontend solutions including games and web applications using Svelte, TypeScript and Pixi.js.',
+    pdf: 'recommendation_letter.pdf',
   },
   {
     year: '2024',

@@ -3,6 +3,8 @@
   import { experiences } from '$lib/data/experience';
   import { NAME, PROJECTS, YEARS_OF_EXPERIENCE } from '$lib/data/constants';
   import { t } from '$lib/i18n';
+  // showPdf stores the filename (string) when open, or empty string when closed
+  let showPdf = $state('');
 
   let sectionElement: HTMLElement | null = $state(null);
   let isVisible = $state(false);
@@ -91,6 +93,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Recommendation card removed; PDF is now per-experience -->
       </div>
     </div>
 
@@ -109,8 +113,46 @@
               <p class="company">{exp.company}</p>
               <p class="description">{exp.description}</p>
             </div>
+
+            <!-- If this is the internship entry, show a label to open recommendation modal -->
+            {#if exp.pdf}
+              <div class="rec-label">
+                <button
+                  class="rec-btn improved"
+                  onclick={() =>
+                    window.open(`/pdf/${exp.pdf}`, '_blank', 'noopener')}
+                  aria-label="Open recommendation letter"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 2h7l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13 2v6h6"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Recommendation
+                </button>
+              </div>
+            {/if}
           </div>
         {/each}
+
+        <!-- PDFs open in a new tab; no modal used -->
       </div>
     </div>
   </div>
@@ -384,5 +426,41 @@
     .timeline-item::before {
       left: -1rem;
     }
+  }
+
+  /* Recommendation label/button */
+  .rec-label {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .rec-btn.improved {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--primary-color);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    );
+    color: var(--primary-color);
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease;
+  }
+
+  .rec-btn.improved:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .rec-btn.improved svg {
+    opacity: 0.9;
   }
 </style>
