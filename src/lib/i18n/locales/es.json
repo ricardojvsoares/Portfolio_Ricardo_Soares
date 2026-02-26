@@ -7,7 +7,7 @@
     "contact": "Contacto"
   },
   "hero": {
-    "title": "Full Stack y Juegos",
+    "title": "Full Stack",
     "titleHighlight": "Desarrollador",
     "subtitle": "Creando experiencias digitales modernas e innovadoras",
     "viewProjects": "Ver Proyectos",
@@ -15,15 +15,16 @@
   },
   "about": {
     "title": "Sobre Mí",
-    "description": "Soy un Desarrollador Full Stack y de Juegos apasionado por crear experiencias digitales funcionales e innovadoras. Con más de 4 años de experiencia, me especializo en tecnologías modernas como Svelte, Node.js y C#.",
+    "description": "Soy un Desarrollador Full Stack apasionado por crear experiencias digitales funcionales e innovadoras. Con más de 4 años de experiencia, me especializo en tecnologías modernas como Svelte, React, Node.js y C#.",
     "philosophy": "Creo que el código debe ser funcional, elegante y sostenible. Siempre busco desafíos que impulsen mi crecimiento profesional y contribuyan a proyectos impactantes.",
     "mainSkills": "Habilidades Principales",
     "name": "Ricardo Soares",
-    "role": "Desarrollador Full Stack y Juegos",
+    "role": "Desarrollador Full Stack",
     "projects": "Proyectos Completados",
     "years": "Años de Experiencia",
     "clients": "Clientes Atendidos",
     "experience": "Experiencia Profesional",
+    "currently": "Actual",
     "positions": {
       "senior": "Desarrollador Full Stack Senior",
       "fullstack": "Desarrollador Full Stack",
@@ -164,7 +165,7 @@
     }
   },
   "footer": {
-    "tagline": "Desarrollador Full Stack y Juegos",
+    "tagline": "Desarrollador Full Stack",
     "description": "Especializado en crear experiencias digitales modernas y funcionales, siempre buscando nuevos desafíos para crecer profesionalmente.",
     "quickLinks": "Enlaces Rápidos",
     "connect": "Conectar",

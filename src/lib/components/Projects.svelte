@@ -181,9 +181,9 @@
   }
 
   .filter-btn.active {
-    background: var(--surface-color);
-    border-color: var(--border-color);
-    color: var(--text-color);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
   }
 
   .projects-grid {
@@ -251,12 +251,14 @@
   }
 
   .project-link.demo {
-    background: var(--primary-color);
-    color: var(--surface-color);
+    background: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
   }
 
   .project-link.demo:hover {
-    background: var(--secondary-color);
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
   }
 
   .project-content {

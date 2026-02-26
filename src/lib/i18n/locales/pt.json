@@ -7,7 +7,7 @@
     "contact": "Contacto"
   },
   "hero": {
-    "title": "Full Stack & Jogos",
+    "title": "Full Stack",
     "titleHighlight": "Desenvolvedor",
     "subtitle": "Criando experiências digitais modernas e inovadoras",
     "viewProjects": "Ver Projetos",
@@ -19,11 +19,12 @@
     "philosophy": "Acredito que o código deve ser funcional, elegante e sustentável. Procuro sempre desafios que promovam o meu crescimento profissional e contribuam para projetos impactantes.",
     "mainSkills": "Competências Principais",
     "name": "Ricardo Soares",
-    "role": "Desenvolvedor Full Stack & Jogos",
+    "role": "Desenvolvedor Full Stack",
     "projects": "Projetos Concluídos",
     "years": "Anos de Experiência",
     "clients": "Clientes Atendidos",
     "experience": "Experiência Profissional",
+    "currently": "Atual",
     "positions": {
       "senior": "Desenvolvedor Full Stack Sénior",
       "fullstack": "Desenvolvedor Full Stack",
@@ -163,7 +164,7 @@
     }
   },
   "footer": {
-    "tagline": "Desenvolvedor Full Stack & Jogos",
+    "tagline": "Desenvolvedor Full Stack",
     "description": "Especializado em criar experiências digitais modernas e funcionais, sempre em busca de novos desafios para crescer profissionalmente.",
     "quickLinks": "Links Rápidos",
     "connect": "Conectar",

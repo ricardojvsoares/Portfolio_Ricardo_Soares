@@ -1,6 +1,5 @@
 <script lang="ts">
   import { t } from '$lib/i18n';
-  import Navigation from '$lib/components/Navigation.svelte';
   import About from '$lib/components/About.svelte';
   import Projects from '$lib/components/Projects.svelte';
   import Skills from '$lib/components/Skills.svelte';
@@ -22,8 +21,6 @@
     content="Portfólio profissional de desenvolvedor full stack especializado em tecnologias modernas"
   />
 </svelte:head>
-
-<Navigation />
 
 <div class="hero">
   <div class="hero-content">
@@ -92,8 +89,8 @@
 
   .gradient-text {
     background: linear-gradient(
-      45deg,
-      var(--primary-color),
+      135deg,
+      var(--accent-color),
       var(--secondary-color)
     );
     -webkit-background-clip: text;
@@ -142,15 +139,12 @@
   }
 
   .btn-primary {
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    color: var(--background-color);
+    background: var(--accent-color);
+    color: #fff;
   }
 
   .btn-primary:hover {
+    background: var(--accent-hover);
     transform: translateY(-2px);
     box-shadow: var(--box-shadow);
   }
@@ -229,7 +223,9 @@
     .hero {
       flex-direction: column;
       text-align: center;
-      padding: 10rem;
+      padding: 2rem 1.5rem 3rem;
+      min-height: auto;
+      padding-top: 6rem;
     }
 
     .hero-visual {

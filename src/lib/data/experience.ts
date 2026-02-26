@@ -1,18 +1,27 @@
-interface experience {
+export interface Experience {
   year: string;
   title: string;
   company: string;
   description: string;
+  current?: boolean;
   pdf?: string;
 }
 
-export const experiences: experience[] = [
+export const experiences: Experience[] = [
+  {
+    year: '2026',
+    title: 'Full Stack Developer',
+    company: 'PlexIt',
+    description:
+      'Building and maintaining full stack applications and services. Delivering scalable, user-focused solutions across the stack.',
+    current: true,
+  },
   {
     year: '2025',
-    title: 'Junior Intern - FrontEnd and Game Design Developer',
+    title: 'Junior Intern - Full Stack Developer',
     company: 'Casino:Gate',
     description:
-      'Collaborating on the development of frontend solutions including games and web applications using Svelte, TypeScript and Pixi.js.',
+      'Collaborating on the development of frontend and full stack solutions and web applications using Svelte, TypeScript and Pixi.js.',
     pdf: 'recommendation_letter.pdf',
   },
   {

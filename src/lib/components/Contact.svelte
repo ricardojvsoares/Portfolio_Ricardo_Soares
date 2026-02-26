@@ -2,6 +2,7 @@
   import { socialLinks } from '$lib/data/socials';
   import { contactInfos } from '$lib/data/contactInfo';
   import { t } from '$lib/i18n';
+  import SocialIcon from '$lib/components/SocialIcon.svelte';
 
   let sectionElement: HTMLElement | null = $state(null);
   let isVisible: boolean = $state(false);
@@ -131,7 +132,9 @@
                 style="animation-delay: {index * 0.1}s"
                 class:animate={isVisible}
               >
-                <span class="social-icon">{social.icon}</span>
+                <span class="social-icon">
+                  <SocialIcon platform={social.platform} size={22} />
+                </span>
                 <span class="social-name">{social.name}</span>
               </a>
             {/each}
@@ -225,7 +228,7 @@
   .contact-section {
     padding: 8rem 0;
     background: var(--background-color);
-    color: white;
+    color: var(--text-color);
   }
 
   .container {
@@ -436,10 +439,10 @@
   .form-group textarea {
     width: 100%;
     padding: 1rem;
-    background: var(--white-005);
+    background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
-    color: white;
+    color: var(--text-color);
     font-size: 1rem;
     transition: all 0.3s ease;
   }
@@ -459,11 +462,7 @@
   .submit-btn {
     width: 100%;
     padding: 1rem 2rem;
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
+    background: var(--accent-color);
     border: none;
     border-radius: 10px;
     color: var(--background-color);
@@ -478,6 +477,7 @@
   }
 
   .submit-btn:hover:not(:disabled) {
+    background: var(--accent-hover);
     transform: translateY(-2px);
     box-shadow: var(--box-shadow);
   }

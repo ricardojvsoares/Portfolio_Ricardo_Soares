@@ -1,9 +1,10 @@
 <script>
   import { GMAIL, LOCALTION, NAME } from '$lib/data/constants';
   import { t } from '$lib/i18n';
+  import { socialLinks } from '$lib/data/socials';
+  import SocialIcon from '$lib/components/SocialIcon.svelte';
 
   const currentYear = new Date().getFullYear();
-  import { socialLinks } from '$lib/data/socials';
 
   const quickLinks = [
     { name: 'footer.links.about', href: '#sobre' },
@@ -50,7 +51,7 @@
               class="social-link"
               title={social.name}
             >
-              <span class="social-icon">{social.icon}</span>
+              <SocialIcon platform={social.platform} size={20} />
             </a>
           {/each}
         </div>

@@ -11,7 +11,7 @@ import fr from './locales/fr.json';
  * Supported locale codes as literal union type.
  */
 const LOCALES = ['pt', 'en', 'es', 'fr'] as const;
-type Locale = (typeof LOCALES)[number];
+export type Locale = (typeof LOCALES)[number];
 
 /**
  * Dictionary of available translations by locale code.
@@ -25,20 +25,32 @@ const translations: Record<Locale, object> = {
 };
 
 /**
- * Detects the user's browser language.
- * @returns {Locale} The language code ('pt' or 'en').
+ * Maps a browser language tag to the best supported locale.
+ * Uses navigator.languages (priority list) and falls back to navigator.language.
+ * @returns {Locale} The best matching locale, or 'en' if none match.
  */
-function getBrowserLanguage(): Locale {
-  if (browser && typeof navigator !== 'undefined' && navigator.language) {
-    const lang = navigator.language.toLowerCase();
-    if (lang.startsWith('pt')) return 'pt';
-    if (lang.startsWith('en')) return 'en';
+function getBrowserLocale(): Locale {
+  if (!browser || typeof navigator === 'undefined') return 'en';
+
+  const sources = [
+    ...(navigator.languages || []),
+    navigator.language,
+    (navigator as { userLanguage?: string }).userLanguage,
+  ].filter(Boolean) as string[];
+
+  for (const tag of sources) {
+    const base = tag.toLowerCase().split(/[-_]/)[0];
+    if (base === 'pt') return 'pt';
+    if (base === 'en') return 'en';
+    if (base === 'es') return 'es';
+    if (base === 'fr') return 'fr';
   }
-  return 'pt'; // Default to Portuguese
+
+  return 'en';
 }
 
 /**
- * Retrieves the initial locale from localStorage or browser language.
+ * Retrieves the initial locale: saved user choice first, then browser locale.
  * @returns {Locale} The initial locale code.
  */
 function getInitialLanguage(): Locale {
@@ -47,8 +59,9 @@ function getInitialLanguage(): Locale {
     if (saved && LOCALES.includes(saved as Locale)) {
       return saved as Locale;
     }
+    return getBrowserLocale();
   }
-  return getBrowserLanguage();
+  return 'en';
 }
 
 /**
@@ -74,18 +87,18 @@ export const t = derived(locale, ($locale) => {
     vars: Record<string, string> = {}
   ): string {
     const keys = key.split('.');
-    let value: any = translations[$locale];
+    let value: unknown = translations[$locale];
 
     // Traverse translation tree for the key
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
-        value = value[k];
+        value = (value as Record<string, unknown>)[k];
       } else {
         // If missing, fallback to Portuguese translations
         value = translations.pt;
         for (const fallbackKey of keys) {
           if (value && typeof value === 'object' && fallbackKey in value) {
-            value = value[fallbackKey];
+            value = (value as Record<string, unknown>)[fallbackKey];
           } else {
             // Return key if no translation found
             return key;

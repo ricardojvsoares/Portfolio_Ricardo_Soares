@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { locale, setLocale, t } from '$lib/i18n';
+  import { locale, setLocale, t, type Locale } from '$lib/i18n';
 
   let isOpen: boolean = $state(false);
   let dropdownElement: HTMLDivElement | null = $state(null);
@@ -16,8 +16,7 @@
   }
 
   function selectLanguage(langCode: string) {
-    // @ts-ignore
-    setLocale(langCode);
+    setLocale(langCode as Locale);
     isOpen = false;
   }
 

@@ -1,29 +1,21 @@
 <script lang="ts">
-  import { skills } from '$lib/data/skills';
   import { experiences } from '$lib/data/experience';
   import { NAME, PROJECTS, YEARS_OF_EXPERIENCE } from '$lib/data/constants';
   import { t } from '$lib/i18n';
-  // showPdf stores the filename (string) when open, or empty string when closed
-  let showPdf = $state('');
 
   let sectionElement: HTMLElement | null = $state(null);
   let isVisible = $state(false);
+
   $effect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible = true;
-          }
+          if (entry.isIntersecting) isVisible = true;
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
-
-    if (sectionElement) {
-      observer.observe(sectionElement);
-    }
-
+    if (sectionElement) observer.observe(sectionElement);
     return () => observer.disconnect();
   });
 </script>
@@ -33,34 +25,12 @@
     <div class="about-content" class:animate={isVisible}>
       <div class="about-text">
         <h2 class="section-title">{$t('about.title')}</h2>
-        <p class="about-description">
+        <p class="about-lead">
           {$t('about.description')}
         </p>
         <p class="about-description">
           {$t('about.philosophy')}
         </p>
-
-        <div class="skills-grid">
-          <h3>{$t('about.mainSkills')}</h3>
-          {#each skills as skill, index}
-            <div
-              class="skill-item"
-              style="animation-delay: {index * 0.1}s"
-              class:animate={isVisible}
-            >
-              <div class="skill-info">
-                <span class="skill-name">{skill.name}</span>
-                <span class="skill-percentage">{skill.level}%</span>
-              </div>
-              <div class="skill-bar">
-                <div
-                  class="skill-progress"
-                  style="width: {isVisible ? skill.level : 0}%"
-                ></div>
-              </div>
-            </div>
-          {/each}
-        </div>
       </div>
 
       <div class="about-visual">
@@ -99,22 +69,27 @@
     </div>
 
     <div class="experience-timeline" class:animate={isVisible}>
-      <h3>{$t('experience')}</h3>
+      <h3>{$t('about.experience')}</h3>
       <div class="timeline">
         {#each experiences as exp, index}
           <div
             class="timeline-item"
-            style="animation-delay: {index * 0.2}s"
+            class:current={exp.current}
+            style="animation-delay: {index * 0.15}s"
             class:animate={isVisible}
           >
-            <div class="timeline-year">{exp.year}</div>
+            <div class="timeline-meta">
+              <span class="timeline-year">{exp.year}</span>
+              {#if exp.current}
+                <span class="timeline-badge">{$t('about.currently')}</span>
+              {/if}
+            </div>
             <div class="timeline-content">
               <h4>{exp.title}</h4>
               <p class="company">{exp.company}</p>
               <p class="description">{exp.description}</p>
             </div>
 
-            <!-- If this is the internship entry, show a label to open recommendation modal -->
             {#if exp.pdf}
               <div class="rec-label">
                 <button
@@ -187,11 +162,11 @@
   }
 
   .section-title {
-    font-size: 3rem;
-    font-weight: 900;
-    margin-bottom: 2rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
     background: linear-gradient(
-      45deg,
+      135deg,
       var(--primary-color),
       var(--secondary-color)
     );
@@ -200,66 +175,19 @@
     background-clip: text;
   }
 
+  .about-lead {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--text-color);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
   .about-description {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.8;
     color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-  }
-
-  .skills-grid {
-    margin-top: 3rem;
-  }
-
-  .skills-grid h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--primary-color);
-  }
-
-  .skill-item {
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: all 0.6s ease;
-  }
-
-  .skill-item.animate {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .skill-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-
-  .skill-name {
-    font-weight: 600;
-  }
-
-  .skill-percentage {
-    color: var(--primary-color);
-    font-weight: 600;
-  }
-
-  .skill-bar {
-    height: 8px;
-    background: var(--background-color);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .skill-progress {
-    height: 100%;
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    border-radius: 4px;
-    transition: width 1.5s ease;
+    margin-bottom: 0;
   }
 
   .profile-card {
@@ -381,11 +309,35 @@
     transform: translateX(-50%);
   }
 
+  .timeline-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
   .timeline-year {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 0.5rem;
+  }
+
+  .timeline-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--accent-color);
+    color: #fff;
+    border-radius: 999px;
+  }
+
+  .timeline-item.current::before {
+    background: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--surface-color);
   }
 
   .timeline-content h4 {

@@ -2,6 +2,8 @@
   /* Accent colors (kept subtle) */
   --primary-color: #111111; /* dark accent used for headings in light mode */
   --secondary-color: #444444; /* secondary neutral accent (light mode) */
+  --accent-color: #0ea5e9; /* brand accent for CTAs and highlights */
+  --accent-hover: #0284c7;
 
   /* Scrollbar tokens (can be overridden per theme) */
   --scrollbar-thumb: rgba(0, 0, 0, 0.14);
@@ -15,8 +17,10 @@
   --black-90: rgba(0, 0, 0, 0.9);
   --black-60: rgba(0, 0, 0, 0.6);
   --black-20: rgba(0, 0, 0, 0.2);
+  --black-005: rgba(0, 0, 0, 0.05);
   --white-90: rgba(255, 255, 255, 0.95);
   --white-60: rgba(255, 255, 255, 0.6);
+  --white-005: rgba(255, 255, 255, 0.05);
 
   --border-radius: 12px;
   --card-padding: 1.5rem;
@@ -39,6 +43,8 @@
   /* make primary color light in dark mode so headings/accents are visible */
   --primary-color: rgba(255, 255, 255, 0.92);
   --secondary-color: rgba(255, 255, 255, 0.64);
+  --accent-color: #38bdf8;
+  --accent-hover: #7dd3fc;
   /* scrollbar for dark */
   --scrollbar-thumb: rgba(255, 255, 255, 0.12);
   --scrollbar-track: transparent;
@@ -55,4 +61,6 @@
   --text-secondary: var(--black-60);
   --muted: rgba(16, 24, 32, 0.04);
   --border-color: rgba(16, 24, 32, 0.06);
+  --accent-color: #0ea5e9;
+  --accent-hover: #0284c7;
 }

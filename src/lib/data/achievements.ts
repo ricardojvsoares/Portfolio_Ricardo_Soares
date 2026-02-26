@@ -1,11 +1,12 @@
-interface achievement {
+export interface Achievement {
   title: string;
   description: string;
   year: string;
   icon: string;
   link?: string;
 }
-export const achievements: achievement[] = [
+
+export const achievements: Achievement[] = [
   {
     title: 'Svelte/SvelteKit',
     description: 'Svelte/SvelteKit Certified on Udemy',

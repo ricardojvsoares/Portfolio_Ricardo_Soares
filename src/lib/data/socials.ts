@@ -1,36 +1,15 @@
-import { GITHUB, INSTAGRAM, LINKED_IN, TWITTER } from './constants';
+import { GITHUB, INSTAGRAM, LINKED_IN } from './constants';
 
-interface SocialLink {
+export type SocialPlatform = 'github' | 'linkedin' | 'instagram';
+
+export interface SocialLink {
   name: string;
-  icon: string;
+  platform: SocialPlatform;
   url: string;
-  color: string;
 }
 
 export const socialLinks: SocialLink[] = [
-  {
-    name: 'GitHub',
-    icon: '🐙',
-    url: GITHUB,
-    color: '#333',
-  },
-  {
-    name: 'LinkedIn',
-    icon: '💼',
-    url: LINKED_IN,
-    color: '#0077b5',
-  },
-  {
-    name: 'Instagram',
-    icon: '📷',
-    url: INSTAGRAM,
-    color: '#e4405f',
-  },
-
-  {
-    name: 'Twitter',
-    icon: '🐦',
-    url: TWITTER,
-    color: '#1da1f2',
-  },
+  { name: 'GitHub', platform: 'github', url: GITHUB },
+  { name: 'LinkedIn', platform: 'linkedin', url: LINKED_IN },
+  { name: 'Instagram', platform: 'instagram', url: INSTAGRAM },
 ];

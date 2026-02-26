@@ -1,100 +1,136 @@
 <script lang="ts">
-  let sectionElement: HTMLElement | null = $state(null);
-  let isVisible: boolean = $state(false);
-  let activeCategory: string = $state('frontend');
   import { t } from '$lib/i18n';
+  import { techStack } from '$lib/data/skills';
+  import { achievements } from '$lib/data/achievements';
+
+  let sectionElement: HTMLElement | null = $state(null);
+  let isVisible = $state(false);
+  /** Icon URLs that failed to load – show letter placeholder instead */
+  let failedIcons = $state<Set<string>>(new Set());
+
+  function onIconError(iconSrc: string) {
+    failedIcons = new Set(failedIcons).add(iconSrc);
+  }
+
+  function showIconPlaceholder(skill: {
+    name: string;
+    icon?: string;
+  }): boolean {
+    return !skill.icon || failedIcons.has(skill.icon);
+  }
+
   $effect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible = true;
-          }
+          if (entry.isIntersecting) isVisible = true;
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.12 }
     );
-
-    if (sectionElement) {
-      observer.observe(sectionElement);
-    }
-
+    if (sectionElement) observer.observe(sectionElement);
     return () => observer.disconnect();
   });
-  import { skillCategories, skills } from '$lib/data/skills';
-
-  import { achievements } from '$lib/data/achievements';
-
-  function setActiveCategory(category: string) {
-    activeCategory = category;
-  }
 </script>
 
 <section id="skills" class="skills-section" bind:this={sectionElement}>
+  <!-- Running slideshow of tech icons behind -->
+  <div class="slideshow-bg" aria-hidden="true">
+    <div class="slideshow-track slideshow-track--left">
+      {#each [...techStack, ...techStack] as skill}
+        <div class="slideshow-item">
+          {#if showIconPlaceholder(skill)}
+            <span class="slideshow-placeholder">{skill.name.charAt(0)}</span>
+          {:else}
+            <img
+              src={skill.icon}
+              alt=""
+              width="48"
+              height="48"
+              onerror={() => onIconError(skill.icon!)}
+            />
+          {/if}
+        </div>
+      {/each}
+    </div>
+    <div class="slideshow-track slideshow-track--right">
+      {#each [...techStack, ...techStack] as skill}
+        <div class="slideshow-item">
+          {#if showIconPlaceholder(skill)}
+            <span class="slideshow-placeholder">{skill.name.charAt(0)}</span>
+          {:else}
+            <img
+              src={skill.icon}
+              alt=""
+              width="48"
+              height="48"
+              onerror={() => onIconError(skill.icon!)}
+            />
+          {/if}
+        </div>
+      {/each}
+    </div>
+  </div>
+
   <div class="container">
     <div class="section-header" class:animate={isVisible}>
       <h2 class="section-title">{$t('skills.title')}</h2>
-      <p class="section-subtitle">
-        {$t('skills.subtitle')}
-      </p>
+      <p class="section-subtitle">{$t('skills.subtitle')}</p>
     </div>
 
-    <div class="skills-content" class:animate={isVisible}>
-      <div class="category-tabs">
-        {#each Object.entries(skillCategories) as [key, category]}
-          <button
-            class="category-tab"
-            class:active={activeCategory === key}
-            onclick={() => setActiveCategory(key)}
-          >
-            <span class="tab-title">{category.title}</span>
-          </button>
-        {/each}
-      </div>
-
-      <div class="skills-grid">
-        {#each skillCategories[activeCategory].skills as skill, index}
-          <div
-            class="skill-card"
-            style="animation-delay: {index * 0.1}s"
-            class:animate={isVisible}
-          >
-            <div class="skill-header">
-              <span class="skill-icon">
-                <img
-                  src={skill.icon}
-                  alt="{skill.name} logo"
-                  width="24"
-                  height="24"
-                />
-              </span>
-
-              <h3 class="skill-name">{skill.name}</h3>
-            </div>
-            <div class="skill-level">
-              <div class="level-bar">
-                <div
-                  class="level-fill"
-                  style="width: {isVisible ? skill.level : 0}%"
-                ></div>
-              </div>
-              <span class="level-text">{skill.level}%</span>
-            </div>
-          </div>
-        {/each}
-      </div>
+    <div class="tech-grid" class:animate={isVisible}>
+      {#each techStack as skill, i}
+        <div
+          class="tech-card"
+          class:animate={isVisible}
+          style="animation-delay: {i * 0.04}s"
+        >
+          {#if showIconPlaceholder(skill)}
+            <span class="tech-icon tech-icon-placeholder"
+              >{skill.name.charAt(0)}</span
+            >
+          {:else}
+            <img
+              src={skill.icon}
+              alt=""
+              width="32"
+              height="32"
+              class="tech-icon"
+              onerror={() => onIconError(skill.icon!)}
+            />
+          {/if}
+          <span class="tech-name">{skill.name}</span>
+        </div>
+      {/each}
     </div>
 
     <div class="achievements-section" class:animate={isVisible}>
       <h3 class="achievements-title">{$t('skills.achievements.title')}</h3>
       <div class="achievements-grid">
         {#each achievements as achievement, index}
-          <a
-            href={achievement.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="view-button"
-          >
+          {#if achievement.link}
+            <a
+              href={achievement.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="achievement-link"
+            >
+              <div
+                class="achievement-card"
+                style="animation-delay: {index * 0.15}s"
+                class:animate={isVisible}
+              >
+                <div class="achievement-icon">{achievement.icon}</div>
+                <div class="achievement-content">
+                  <h4 class="achievement-title">{achievement.title}</h4>
+                  <p class="achievement-description">
+                    {achievement.description}
+                  </p>
+                  <span class="achievement-year">{achievement.year}</span>
+                </div>
+              </div>
+            </a>
+          {:else}
             <div
               class="achievement-card"
               style="animation-delay: {index * 0.15}s"
@@ -107,7 +143,7 @@
                 <span class="achievement-year">{achievement.year}</span>
               </div>
             </div>
-          </a>
+          {/if}
         {/each}
       </div>
     </div>
@@ -115,36 +151,105 @@
 </section>
 
 <style>
-  .view-button {
-    text-decoration: none;
-  }
-
-  .view-button:hover {
-    text-decoration: none;
-  }
-
   .skills-section {
-    padding: 8rem 0;
+    position: relative;
+    padding: 6rem 0 8rem;
     background: linear-gradient(
-      135deg,
+      160deg,
       var(--background-color) 0%,
-      var(--surface-color) 100%
+      var(--surface-color) 50%,
+      var(--background-color) 100%
     );
-    color: white;
+    color: var(--text-color);
+    overflow: hidden;
+  }
+
+  .slideshow-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .slideshow-track {
+    position: absolute;
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+    opacity: 0.12;
+  }
+
+  .slideshow-track--left {
+    top: 12%;
+    left: 0;
+    animation: slideLeft 45s linear infinite;
+  }
+
+  .slideshow-track--right {
+    bottom: 18%;
+    right: 0;
+    animation: slideRight 50s linear infinite;
+  }
+
+  .slideshow-item {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 6px;
+  }
+
+  .slideshow-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .slideshow-placeholder {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 
   .container {
-    max-width: 1200px;
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
   }
 
   .section-header.animate {
@@ -153,11 +258,11 @@
   }
 
   .section-title {
-    font-size: 3rem;
-    font-weight: 900;
-    margin-bottom: 1rem;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
     background: linear-gradient(
-      45deg,
+      135deg,
       var(--primary-color),
       var(--secondary-color)
     );
@@ -167,144 +272,100 @@
   }
 
   .section-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
-    max-width: 600px;
+    max-width: 480px;
     margin: 0 auto;
   }
 
-  .skills-content {
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
     opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease 0.2s;
+    transform: translateY(16px);
+    transition:
+      opacity 0.5s ease 0.1s,
+      transform 0.5s ease 0.1s;
   }
 
-  .skills-content.animate {
+  .tech-grid.animate {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .category-tabs {
+  .tech-card {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-  }
-
-  .category-tab {
-    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    padding: 1rem 1.5rem;
+    padding: 1rem 0.75rem;
     background: var(--surface-color);
-    border: 2px solid var(--border-color);
-    border-radius: 15px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-  }
-
-  .category-tab:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    transform: translateY(-2px);
-  }
-
-  .category-tab.active {
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    border-color: transparent;
-    color: var(--background-color);
-    transform: translateY(-2px);
-    box-shadow: var(--box-shadow);
-  }
-
-  .tab-title {
-    font-weight: 600;
-  }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-
-  .skill-card {
-    background: var(--surface-color);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 1.5rem;
     border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.6s ease forwards;
+    transform: translateY(10px);
+    animation: techIn 0.4s ease forwards;
   }
 
-  .skill-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
-    box-shadow: var(--box-shadow);
+  .tech-card.animate {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .skill-header {
-    display: flex;
+  .tech-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 6px 20px var(--shadow);
+    transform: translateY(-3px);
+  }
+
+  .tech-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .tech-icon-placeholder {
+    display: inline-flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .skill-icon {
-    font-size: 2rem;
-  }
-
-  .skill-name {
-    font-size: 1.2rem;
-    font-weight: 600;
+    justify-content: center;
+    background: var(--muted);
     color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 8px;
   }
 
-  .skill-level {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .level-bar {
-    flex: 1;
-    height: 8px;
-    background: var(--border-color);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .level-fill {
-    height: 100%;
-    background: linear-gradient(
-      45deg,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    border-radius: 4px;
-    transition: width 1.5s ease;
-  }
-
-  .level-text {
+  .tech-name {
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--primary-color);
-    min-width: 40px;
+    color: var(--text-color);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  @keyframes techIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .achievements-section {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border-color);
     opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease 0.4s;
+    transform: translateY(16px);
+    transition:
+      opacity 0.5s ease 0.2s,
+      transform 0.5s ease 0.2s;
   }
 
   .achievements-section.animate {
@@ -313,89 +374,108 @@
   }
 
   .achievements-title {
-    font-size: 2rem;
+    font-size: 1.25rem;
+    font-weight: 700;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     color: var(--primary-color);
   }
 
   .achievements-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .achievement-link {
+    text-decoration: none;
+    color: inherit;
   }
 
   .achievement-card {
     background: var(--surface-color);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 1.5rem;
     border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
     text-align: center;
-    transition: all 0.3s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.6s ease forwards;
+    transform: translateY(10px);
+    animation: techIn 0.5s ease forwards;
+  }
+
+  .achievement-card.animate {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .achievement-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
-    box-shadow: 0 10px 25px var(--surface-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 6px 16px var(--shadow);
+    transform: translateY(-3px);
   }
 
   .achievement-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1;
   }
 
   .achievement-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--primary-color);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .achievement-description {
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    margin-bottom: 1rem;
-    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
   }
 
   .achievement-year {
     display: inline-block;
-    padding: 0.3rem 0.8rem;
-    background: var(--surface-color);
+    padding: 0.2rem 0.5rem;
+    background: var(--muted);
     color: var(--primary-color);
-    border-radius: 15px;
-    font-size: 0.9rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
     font-weight: 600;
-    border: 1px solid var(--primary-color);
-  }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    border: 1px solid var(--border-color);
   }
 
   @media (max-width: 768px) {
-    .section-title {
-      font-size: 2rem;
+    .skills-section {
+      padding: 4rem 0 6rem;
     }
-
-    .category-tabs {
-      flex-direction: column;
-      align-items: center;
+    .tech-grid {
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 0.75rem;
     }
-
-    .skills-grid {
-      grid-template-columns: 1fr;
+    .tech-card {
+      padding: 0.75rem 0.5rem;
     }
+    .tech-name {
+      font-size: 0.8rem;
+    }
+    .slideshow-item {
+      width: 40px;
+      height: 40px;
+    }
+    .slideshow-track {
+      gap: 1.25rem;
+    }
+  }
 
-    .achievements-grid {
-      grid-template-columns: 1fr;
+  @media (prefers-reduced-motion: reduce) {
+    .slideshow-track--left,
+    .slideshow-track--right {
+      animation: none;
     }
   }
 </style>

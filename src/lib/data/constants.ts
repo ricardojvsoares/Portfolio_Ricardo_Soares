@@ -13,6 +13,4 @@ export const GMAIL: string = 'geral.ricardosoares@gmail.com';
 
 export const INSTAGRAM: string = 'https://www.instagram.com/ricardo_soarezz/';
 
-export const TWITTER: string = 'https://twitter.com/rjsoarezzz';
-
 export const LOCALTION: string = 'Murtosa,Portugal';
